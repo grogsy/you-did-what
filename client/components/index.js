@@ -1,23 +1,19 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import React, { lazy, Suspense } from "react";
 import Container from "react-bootstrap/Container";
+import Spinner from "react-bootstrap/Spinner";
 
-import { getTasks } from "../state";
-import Routes from "./Routes";
+// import Routes from "./Routes";
+const Routes = lazy(() => import("./Routes"));
 import Navbar from "./Navbar";
 
 const App = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getTasks());
-  }, [dispatch]);
-
   return (
     <>
       <Navbar />
       <Container style={style.container} fluid>
-        <Routes />
+        <Suspense fallback={<Spinner variant="info" animation="border" />}>
+          <Routes />
+        </Suspense>
       </Container>
     </>
   );
