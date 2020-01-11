@@ -1,5 +1,5 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
 import Container from "react-bootstrap/Container";
 import Tabs from "react-bootstrap/Tabs";
@@ -10,8 +10,19 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
 
 import TaskList from "./TaskList";
+import EmptyTaskList from "./EmptyTaskList";
+
+import { getTasks } from "../../../state";
 
 const TaskListContainer = () => {
+  const dispatch = useDispatch();
+  const [state, setState] = useState({ loading: true });
+  useEffect(() => {
+    dispatch(getTasks()).then(() => {
+      setState({ loading: false });
+    });
+  }, [dispatch]);
+
   const tasks = useSelector(state => state.tasks.tasks);
   const completeTasks = useSelector(state => state.tasks.completedTasks);
 
@@ -32,7 +43,11 @@ const TaskListContainer = () => {
           </DropdownButton>
           <Tabs className="mt-2" defaultActiveKey="In Progress">
             <Tab eventKey="In Progress" title="In Progress">
-              <TaskList tasks={tasks} />
+              {!tasks.length && !state.loading ? (
+                <EmptyTaskList />
+              ) : (
+                <TaskList tasks={tasks} />
+              )}
             </Tab>
             <Tab eventKey="Completed" title="Completed">
               <TaskList tasks={completeTasks} completed />
@@ -46,7 +61,6 @@ const TaskListContainer = () => {
 
 const styles = {
   classes: {
-    formContainer: "justify-content-md-center",
     listGroup: "mt-2",
     header: "text-center",
     container: "d-flex flex-column",
