@@ -19,7 +19,7 @@ const TaskForm = () => {
   // ref for form field focus
   useEffect(() => {
     target.current.focus();
-  });
+  }, []);
 
   const initialFormState = {
     name: "",
@@ -35,10 +35,13 @@ const TaskForm = () => {
       <Row className="justify-content-md-center">
         <Col xl={6}>
           <Form
-            onSubmit={() => {
-              dispatch(addNewTask({ ...form }));
-              // history.push(`/${id}`);
-              history.push("/");
+            onSubmit={e => {
+              e.preventDefault();
+              dispatch(addNewTask({ ...form }))
+                .then(task => history.push(`/tasks/${task.id}`))
+                .catch(error => {
+                  console.log(error);
+                });
             }}
           >
             <Form.Group>
