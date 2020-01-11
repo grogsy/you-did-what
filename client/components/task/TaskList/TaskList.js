@@ -1,10 +1,9 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
 import TaskListRow from "./TaskListRow";
-import EmptyTaskList from "./EmptyTaskList";
 
 const TaskList = ({ tasks, completed }) => {
-  return tasks.length ? (
+  return (
     <Table striped bordered responsive>
       <thead>
         <tr>
@@ -20,8 +19,6 @@ const TaskList = ({ tasks, completed }) => {
         ))}
       </tbody>
     </Table>
-  ) : (
-    <EmptyTaskList />
   );
 };
 
