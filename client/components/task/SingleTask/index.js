@@ -6,25 +6,25 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { getSingleTask } from "../../../state";
 
-const SingleTaskContainer = ({ id }) => {
+const SingleTaskContainer = props => {
   const dispatch = useDispatch();
   const task = useSelector(state => state.tasks.viewedTask);
 
   useEffect(() => {
-    dispatch(getSingleTask(id));
+    dispatch(getSingleTask(props.match.params.id));
   }, [dispatch]);
 
   return (
-    <Container>
+    <Container className="mt-3">
       <Row>
         <Col>
-          <h4>Task</h4>
+          <h3>Task</h3>
           <p>{task.name}</p>
         </Col>
       </Row>
       <Row>
         <Col>
-          <h4>Description</h4>
+          <h3>Description</h3>
           <p>{task.description}</p>
         </Col>
       </Row>
