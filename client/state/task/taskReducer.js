@@ -10,9 +10,7 @@ import {
 const initialTaskState = {
   tasks: [],
   completedTasks: [],
-  currentlyViewedList: [],
-  viewedTask: {},
-  newTaskId: null
+  viewedTask: {}
 };
 
 export default (state = initialTaskState, action) => {
@@ -20,7 +18,7 @@ export default (state = initialTaskState, action) => {
     case RECEIVE_TASKS:
       return {
         ...state,
-        tasks: action.tasks.filter(task => task.status !== "Completed"),
+        tasks: action.tasks.filter(task => task.status === "In Progress"),
         completedTasks: action.tasks.filter(task => task.status === "Completed")
       };
     case RECEIVE_SINGLE_TASK:
@@ -42,8 +40,7 @@ export default (state = initialTaskState, action) => {
     case ADDED_TASK:
       return {
         ...state,
-        tasks: [action.task, ...state.tasks],
-        newTaskId: action.task.id
+        tasks: [action.task, ...state.tasks]
       };
 
     default:

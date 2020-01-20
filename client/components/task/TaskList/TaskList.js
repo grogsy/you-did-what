@@ -9,6 +9,7 @@ const TaskList = ({ tasks, completed }) => {
         <tr>
           <th>Task</th>
           <th>Description</th>
+          <th>Category</th>
           <th>Created</th>
           <th>{completed ? "Completed At" : ""}</th>
         </tr>
@@ -20,12 +21,6 @@ const TaskList = ({ tasks, completed }) => {
       </tbody>
     </Table>
   );
-};
-
-const styles = {
-  classes: {
-    listGroup: ""
-  }
 };
 
 export default TaskList;
