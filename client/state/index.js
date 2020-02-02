@@ -5,5 +5,6 @@ export {
   addNewTask,
   deleteTask,
   filterTasks,
-  markTaskComplete
-} from "./task";
+  markTaskComplete,
+  cleanupSingleTask
+} from "./task/taskActionCreators";

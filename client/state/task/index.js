@@ -4,7 +4,8 @@ export {
   addNewTask,
   deleteTask,
   filterTasks,
-  markTaskComplete
+  markTaskComplete,
+  cleanupSingleTask
 } from "./taskActionCreators";
 
 export { default as taskReducer } from "./taskReducer";

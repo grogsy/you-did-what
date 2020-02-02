@@ -5,6 +5,7 @@ export const REMOVED_TASK = "REMOVED_TASK";
 export const ADDED_TASK = "ADDED_TASK";
 export const UPDATED_TASK = "UPDATED_TASK";
 export const COMPLETED_TASK = "COMPLETED_TASK";
+export const CLEANUP_SINGLE_TASK = "CLEANUP_SINGLE_TASK";
 
 export const receiveTasks = tasks => ({
   type: RECEIVE_TASKS,
@@ -14,6 +15,11 @@ export const receiveTasks = tasks => ({
 export const receiveSingleTask = task => ({
   type: RECEIVE_SINGLE_TASK,
   task
+});
+
+export const cleanedupSingleTask = () => ({
+  type: CLEANUP_SINGLE_TASK,
+  task: {}
 });
 
 export const filteredTasks = filterCallback => ({

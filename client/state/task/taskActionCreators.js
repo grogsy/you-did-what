@@ -1,29 +1,24 @@
 import axios from "axios";
 
-import { parseDate } from "./taskUtil";
+import { giveDateFields } from "./taskUtil";
 import {
   receiveSingleTask,
   receiveTasks,
   filteredTasks,
   removeTask,
   addTask,
-  completeTask
+  completeTask,
+  cleanedupSingleTask
 } from "./taskActions";
 
 export const getTasks = () => {
   return async dispatch => {
     const { data } = await axios.get("/api/tasks");
 
-    // create a human friendly date field
     const tasks = data.map(task => {
-      let extraFields = {};
-      const posted = parseDate(task.createdAt);
-      extraFields = { posted };
-      if (task.status === "Completed") {
-        const completedAt = parseDate(task.updatedAt);
-        extraFields = { posted, completedAt };
-      }
-      return { ...task, ...extraFields };
+      // create a human friendly date field
+      task = giveDateFields(task);
+      return task;
     });
     dispatch(receiveTasks(tasks));
   };
@@ -32,7 +27,14 @@ export const getTasks = () => {
 export const getSingleTask = id => {
   return async dispatch => {
     const { data } = await axios.get(`/api/tasks/${id}`);
-    dispatch(receiveSingleTask(data));
+    const task = giveDateFields(data);
+    dispatch(receiveSingleTask(task));
+  };
+};
+
+export const cleanupSingleTask = () => {
+  return async dispatch => {
+    dispatch(cleanedupSingleTask());
   };
 };
 

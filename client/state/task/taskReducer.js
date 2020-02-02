@@ -4,7 +4,8 @@ import {
   FILTERED_TASKS,
   REMOVED_TASK,
   ADDED_TASK,
-  COMPLETED_TASK
+  COMPLETED_TASK,
+  CLEANUP_SINGLE_TASK
 } from "./taskActions";
 
 const initialTaskState = {
@@ -23,6 +24,8 @@ export default (state = initialTaskState, action) => {
       };
     case RECEIVE_SINGLE_TASK:
       return { ...state, viewedTask: action.task };
+    case CLEANUP_SINGLE_TASK:
+      return { ...state, viewedTask: {} };
     case FILTERED_TASKS:
       return {
         ...state,
