@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getSingleTask } from "../../../state";
+import { getSingleTask, cleanupSingleTask } from "../../../state";
 
 const SingleTaskContainer = props => {
   const dispatch = useDispatch();
@@ -12,6 +12,10 @@ const SingleTaskContainer = props => {
 
   useEffect(() => {
     dispatch(getSingleTask(props.match.params.id));
+
+    return function cleanup() {
+      dispatch(cleanupSingleTask());
+    };
   }, [dispatch]);
 
   return (
@@ -20,6 +24,10 @@ const SingleTaskContainer = props => {
         <Col>
           <h3>Task</h3>
           <p>{task.name}</p>
+        </Col>
+        <Col>
+          <h3>Created</h3>
+          <abbr title={task.posted_long}>{task.posted}</abbr>
         </Col>
       </Row>
       <Row>
