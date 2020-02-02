@@ -15,12 +15,12 @@ const TaskListContainer = () => {
   const tasks = useSelector(state => state.tasks.tasks);
   const completeTasks = useSelector(state => state.tasks.completedTasks);
 
-  const [state, setState] = useState({ loading: true });
+  const [loading, setLoading] = useState(true);
   const [viewedTasks, setViewedTasks] = useState([]);
 
   useEffect(() => {
     dispatch(getTasks()).then(() => {
-      setState({ loading: false });
+      setLoading(false);
     });
   }, [dispatch]);
 
@@ -31,7 +31,7 @@ const TaskListContainer = () => {
   const filterTasksbyCategory = category => {
     setViewedTasks(
       tasks.filter(task => {
-        if (category) {
+        if (category !== "All") {
           return task.category === category;
         }
         return true;
@@ -47,7 +47,7 @@ const TaskListContainer = () => {
           <TaskListTabs
             viewedTasks={viewedTasks}
             completeTasks={completeTasks}
-            loading={state.loading}
+            loading={loading}
           />
         </Col>
       </Row>
