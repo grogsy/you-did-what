@@ -10,8 +10,8 @@ const TaskList = ({ tasks, completed }) => {
           <th>Task</th>
           <th>Description</th>
           <th>Category</th>
-          <th>Created</th>
-          <th>{completed ? "Completed At" : ""}</th>
+          <th className="text-center">Created</th>
+          <th className="text-center">{completed ? "Completed At" : ""}</th>
         </tr>
       </thead>
       <tbody>
