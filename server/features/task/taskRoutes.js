@@ -65,4 +65,20 @@ router.put("/:id", async (req, res, next) => {
   }
 });
 
+router.put("/complete/:id/", async (req, res, next) => {
+  try {
+    const task = await Task.findByPk(req.params.id);
+    // task.status = "Completed";
+    // task.completedAt = Sequelize.fn("now", task.updatedAt);
+    // await task.save();
+    await task.update({
+      status: "Completed"
+      // completedAt: Sequelize.fn("NOW")
+    });
+    res.json(task);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
