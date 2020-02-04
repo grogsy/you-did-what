@@ -16,7 +16,7 @@ const Resource = db.define("resource", {
 });
 
 Resource.beforeCreate((resource, options) => {
-  if (!resource.fallbackText) {
+  if (!resource.fallbackText || resource.fallbackText.trim().length === 0) {
     resource.fallbackText = resource.httplink;
   }
 });

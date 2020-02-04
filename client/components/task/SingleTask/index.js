@@ -4,14 +4,17 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useDispatch, useSelector } from "react-redux";
 
+import TaskResources from "./TaskResources";
+import ResourcesList from "./ResourcesList";
 import { getSingleTask, cleanupSingleTask } from "../../../state";
 
 const SingleTaskContainer = props => {
+  const taskId = props.match.params.id;
   const dispatch = useDispatch();
   const task = useSelector(state => state.tasks.viewedTask);
 
   useEffect(() => {
-    dispatch(getSingleTask(props.match.params.id));
+    dispatch(getSingleTask(taskId));
 
     return function cleanup() {
       dispatch(cleanupSingleTask());
@@ -36,6 +39,8 @@ const SingleTaskContainer = props => {
           <p>{task.description}</p>
         </Col>
       </Row>
+      {/* <TaskResources taskId={taskId} /> */}
+      <ResourcesList taskId={taskId} />
     </Container>
   );
 };
