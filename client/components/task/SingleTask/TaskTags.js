@@ -16,10 +16,9 @@ const TaskTags = ({ tags }) => {
 
   return (
     <Col onMouseEnter={display} onMouseLeave={hide}>
-      <h3>Tagged As:</h3>
+      <h4>Tagged As:</h4>
       {tags ? (
         <small>
-          Tagged As: &nbsp;
           {tags.map(tag => (
             <a key={tag} href="#">
               {tag},{" "}
