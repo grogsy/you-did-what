@@ -48,7 +48,7 @@ const TaskDescription = ({ description, taskId }) => {
       {editing ? (
         <>
           <FormControl
-            value={text || description}
+            value={text === undefined ? description : text}
             as="textarea"
             onChange={e => setText(e.target.value)}
             onFocus={e => e.target.select()}
