@@ -1,9 +1,11 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
+
+import ResourceFormFields from "./ResourceFormFields";
 
 import { addNewResource } from "../../state/resource/resourceActionCreators";
 
@@ -16,12 +18,12 @@ const ResourceFormModal = ({ taskId }) => {
     fallbackText: ""
   });
 
-  const target = useRef();
-  useEffect(() => {
-    if (show) {
-      target.current.focus();
-    }
-  }, [show]);
+  const showModal = () => setShow(true);
+  const hideModal = () => setShow(false);
+
+  const handleOnChange = (e, field) => {
+    setFormState({ ...formState, [field]: e.target.value });
+  };
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -32,44 +34,24 @@ const ResourceFormModal = ({ taskId }) => {
 
   return (
     <div className="float-right">
-      <Button variant="outline-success" onClick={() => setShow(true)}>
+      <Button variant="outline-success" onClick={showModal}>
         <i className="fas fa-plus"></i> Add Resource
       </Button>
-      <Modal show={show} onHide={() => setShow(false)}>
+      <Modal show={show} onHide={hideModal}>
         <Form onSubmit={handleSubmit}>
           <Modal.Header closeButton>
             <Modal.Title>Add Resource</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Form.Group>
-              <Form.Label>Link</Form.Label>
-              <Form.Control
-                type="text"
-                value={formState.link}
-                onChange={e =>
-                  setFormState({ ...formState, httplink: e.target.value })
-                }
-                ref={target}
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>
-                Title &nbsp;
-                <small className="text-info">
-                  <em>(Optional)</em>
-                </small>
-              </Form.Label>
-              <Form.Control
-                type="text"
-                value={formState.title}
-                onChange={e =>
-                  setFormState({ ...formState, fallbackText: e.target.value })
-                }
-              />
-            </Form.Group>
+            <ResourceFormFields
+              link={formState.link}
+              title={formState.title}
+              show={show}
+              handleOnChange={handleOnChange}
+            />
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={() => setShow(false)}>
+            <Button variant="secondary" onClick={hideModal}>
               Close
             </Button>
             <Button variant="primary" type="submit">
