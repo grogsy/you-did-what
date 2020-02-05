@@ -7,12 +7,19 @@ import Form from "react-bootstrap/Form";
 const TagsField = ({ tags, deleteTag, addTag }) => {
   const [tagForm, setTagForm] = useState("");
 
-  const validateTag = tag => {
-    if (tags.includes(tag)) {
+  const validateTag = () => {
+    if (tags.includes(tagForm)) {
       window.alert("That tag already exists.");
     } else {
-      addTag(tag);
+      addTag(tagForm);
       setTagForm("");
+    }
+  };
+
+  const handleKeyPress = e => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      validateTag(tagForm);
     }
   };
 
@@ -37,14 +44,12 @@ const TagsField = ({ tags, deleteTag, addTag }) => {
       <InputGroup>
         <Form.Control
           value={tagForm}
+          onKeyPress={handleKeyPress}
           onChange={e => setTagForm(e.target.value)}
           type="text"
         />
         <InputGroup.Append>
-          <Button
-            onClick={() => validateTag(tagForm)}
-            variant="outline-success"
-          >
+          <Button onClick={validateTag} variant="outline-success">
             Add Tag
           </Button>
         </InputGroup.Append>
