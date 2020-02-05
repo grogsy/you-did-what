@@ -4,11 +4,11 @@ import { giveDateFields } from "./taskUtil";
 import {
   receiveSingleTask,
   receiveTasks,
-  filteredTasks,
   removeTask,
   addTask,
   completeTask,
-  cleanedupSingleTask
+  cleanedupSingleTask,
+  editedTask
 } from "./taskActions";
 
 export const getTasks = () => {
@@ -32,6 +32,14 @@ export const getSingleTask = id => {
   };
 };
 
+export const editTask = (id, edits) => {
+  return async dispatch => {
+    const { data } = await axios.put(`/api/tasks/${id}`, edits);
+    const task = giveDateFields(data);
+    dispatch(editedTask(task));
+  };
+};
+
 export const cleanupSingleTask = () => {
   return async dispatch => {
     dispatch(cleanedupSingleTask());
@@ -52,20 +60,6 @@ export const deleteTask = id => {
     dispatch(removeTask(data));
   };
 };
-
-export const filterTasks = callback => {
-  return async dispatch => {
-    dispatch(filteredTasks(callback));
-  };
-};
-
-// export const markTaskComplete = task => {
-//   return async dispatch => {
-//     task.status = "Completed";
-//     const { data } = await axios.put(`/api/tasks/${task.id}`, task);
-//     dispatch(completeTask(data));
-//   };
-// };
 
 export const markTaskComplete = id => {
   return async dispatch => {

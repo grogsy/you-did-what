@@ -1,5 +1,6 @@
 export const RECEIVE_TASKS = "RECEIVE_TASKS";
 export const RECEIVE_SINGLE_TASK = "RECEIVE_SINGLE_TASK";
+export const EDITED_TASK = "EDITED_TASK";
 export const FILTERED_TASKS = "FILTERED_TASKS";
 export const REMOVED_TASK = "REMOVED_TASK";
 export const ADDED_TASK = "ADDED_TASK";
@@ -14,6 +15,11 @@ export const receiveTasks = tasks => ({
 
 export const receiveSingleTask = task => ({
   type: RECEIVE_SINGLE_TASK,
+  task
+});
+
+export const editedTask = task => ({
+  type: EDITED_TASK,
   task
 });
 
