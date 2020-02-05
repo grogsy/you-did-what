@@ -30,6 +30,14 @@ const Task = db.define("task", {
     ),
     defaultValue: "General",
     allowNull: false
+  },
+  completedAt: {
+    type: Sequelize.DATE,
+    allowNull: true
+  },
+  tags: {
+    type: Sequelize.ARRAY(Sequelize.STRING),
+    defaultValue: []
   }
 });
 
