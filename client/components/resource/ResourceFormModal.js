@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 
-import { addNewResource } from "../../../state/resource/resourceActionCreators";
+import { addNewResource } from "../../state/resource/resourceActionCreators";
 
 const ResourceFormModal = ({ taskId }) => {
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ const ResourceFormModal = ({ taskId }) => {
   };
 
   return (
-    <>
+    <div className="float-right">
       <Button variant="outline-success" onClick={() => setShow(true)}>
         <i className="fas fa-plus"></i> Add Resource
       </Button>
@@ -78,7 +78,7 @@ const ResourceFormModal = ({ taskId }) => {
           </Modal.Footer>
         </Form>
       </Modal>
-    </>
+    </div>
   );
 };
 
