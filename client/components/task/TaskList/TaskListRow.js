@@ -26,7 +26,7 @@ const TaskListRow = ({ task, completed }) => {
           <small>
             Tagged As: &nbsp;
             {task.tags.map(tag => (
-              <a key={tag} href="#">
+              <a key={tag} title={`See all tasks tagged with ${tag}`} href="#">
                 {tag},{" "}
               </a>
             ))}{" "}
