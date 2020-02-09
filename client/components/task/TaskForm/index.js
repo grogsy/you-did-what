@@ -9,7 +9,6 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 import ImageField from "./ImageField";
-// import TagsField from "./TagsField";
 import TagsField from "./TagsField";
 import CategoryField from "./CategoryField";
 import TextField from "./TextField";
