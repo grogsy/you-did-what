@@ -9,6 +9,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 import ImageField from "./ImageField";
+// import TagsField from "./TagsField";
 import TagsField from "./TagsField";
 import CategoryField from "./CategoryField";
 import TextField from "./TextField";
@@ -76,7 +77,7 @@ const TaskForm = () => {
             <TextField handleOnChange={setTextField} />
             <CategoryField handleOnChange={setCategory} />
             <TagsField tags={form.tags} deleteTag={deleteTag} addTag={addTag} />
-            <Button variant="info" type="submit">
+            <Button variant="primary" type="submit">
               Submit
             </Button>
           </Form>

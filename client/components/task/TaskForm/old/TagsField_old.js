@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
-import Badge from "react-bootstrap/Badge";
 import InputGroup from "react-bootstrap/InputGroup";
 import Form from "react-bootstrap/Form";
 
+import TagsList from "./TagsList";
+
 const TagsField = ({ tags, deleteTag, addTag }) => {
   const [tagForm, setTagForm] = useState("");
+  const [focused, setFocus] = useState(false);
 
   const validateTag = () => {
     if (tags.includes(tagForm)) {
@@ -17,7 +19,7 @@ const TagsField = ({ tags, deleteTag, addTag }) => {
   };
 
   const handleKeyPress = e => {
-    if (e.key === "Enter") {
+    if (focused && e.key === "Enter") {
       e.preventDefault();
       validateTag(tagForm);
     }
@@ -26,23 +28,11 @@ const TagsField = ({ tags, deleteTag, addTag }) => {
   return (
     <Form.Group>
       <Form.Label>Tags</Form.Label>
-      <div>
-        {tags.map(tag => (
-          <Badge
-            key={tag}
-            onClick={() => deleteTag(tag)}
-            style={{ cursor: "pointer" }}
-            className="mx-1 mb-2"
-            title="Remove Tag"
-            variant="info"
-          >
-            <i className="fas fa-times xs my-auto"></i>&nbsp;
-            {tag}
-          </Badge>
-        ))}
-      </div>
+      <TagsList tags={tags} deleteTag={deleteTag} />
       <InputGroup>
         <Form.Control
+          onFocus={() => setFocus(true)}
+          onBlur={() => setFocus(false)}
           value={tagForm}
           onKeyPress={handleKeyPress}
           onChange={e => setTagForm(e.target.value)}
