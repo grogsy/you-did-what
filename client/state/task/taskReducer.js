@@ -8,8 +8,11 @@ import {
   EDITED_TASK
 } from "./taskActions";
 
+import { paginateTasks } from "./taskUtil";
+
 const initialTaskState = {
   tasks: [],
+  pages: [],
   completedTasks: [],
   viewedTask: {}
 };
@@ -17,9 +20,12 @@ const initialTaskState = {
 export default (state = initialTaskState, action) => {
   switch (action.type) {
     case RECEIVE_TASKS:
+      const tasks = action.tasks.filter(task => task.status === "In Progress");
+      const pages = paginateTasks(tasks);
       return {
         ...state,
-        tasks: action.tasks.filter(task => task.status === "In Progress"),
+        tasks,
+        pages,
         completedTasks: action.tasks.filter(task => task.status === "Completed")
       };
     case CLEANUP_SINGLE_TASK:

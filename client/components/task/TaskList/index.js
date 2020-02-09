@@ -13,6 +13,7 @@ import { getTasks } from "../../../state";
 const TaskListContainer = () => {
   const dispatch = useDispatch();
   const tasks = useSelector(state => state.tasks.tasks);
+  const pages = useSelector(state => state.tasks.pages);
   const completeTasks = useSelector(state => state.tasks.completedTasks);
 
   const [loading, setLoading] = useState(true);
