@@ -39,6 +39,7 @@ const SingleTaskContainer = props => {
           name={task.name}
           longDate={task.posted_long}
           shortDate={task.posted}
+          category={task.category}
         />
       </Row>
       <hr />
