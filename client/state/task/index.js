@@ -3,7 +3,6 @@ export {
   getSingleTask,
   addNewTask,
   deleteTask,
-  filterTasks,
   markTaskComplete,
   cleanupSingleTask
 } from "./taskActionCreators";
