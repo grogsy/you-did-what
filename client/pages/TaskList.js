@@ -5,16 +5,15 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-import TaskListCategoryDropdown from "./TaskListCategoryDropdown";
-import TaskListTabs from "./TaskListTabs";
-import TaskListPageNumbers from "./TaskListPageNumbers";
+import TaskListCategoryDropdown from "../components/task/TaskList/TaskListCategoryDropdown";
+import TaskListTabs from "../components/task/TaskList/TaskListTabs";
+import TaskListPageNumbers from "../components/task/TaskList/TaskListPageNumbers";
 
-import { getTasks } from "../../../state";
+import { getTasks } from "../state";
 
-const TaskListContainer = () => {
+const TaskList = () => {
   const dispatch = useDispatch();
   const tasks = useSelector(state => state.tasks.tasks);
-  // const pages = useSelector(state => state.tasks.pages);
   const completeTasks = useSelector(state => state.tasks.completedTasks);
 
   const [loading, setLoading] = useState(true);
@@ -46,13 +45,6 @@ const TaskListContainer = () => {
 
     setPages(paginate(viewedTasks));
   }, [viewedTasks]);
-  console.log(pages);
-
-  // useEffect(() => {
-  //   if (pages && pages.length) {
-  //     setViewedTasks(pages[0]);
-  //   }
-  // }, [pages]);
 
   const filterTasksbyCategory = category => {
     setViewedTasks(
@@ -72,7 +64,7 @@ const TaskListContainer = () => {
           <TaskListCategoryDropdown filter={filterTasksbyCategory} />
           <TaskListTabs
             // viewedTasks={viewedTasks}
-            viewedTasks={pages[pageIndex] || []}
+            viewedTasks={pages[pageIndex]}
             completeTasks={completeTasks}
             loading={loading}
           />
@@ -104,4 +96,4 @@ const styles = {
   }
 };
 
-export default TaskListContainer;
+export default TaskList;

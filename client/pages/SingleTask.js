@@ -4,15 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 
-import TaskHeader from "./TaskHeader";
-import TaskDescription from "./TaskDescription";
-import ResourcesList from "../../resource/ResourceList";
-import TaskTags from "./TaskTags";
+import ResourcesList from "../components/resource/ResourceList";
+import TaskHeader from "../components/task/SingleTask/TaskHeader";
+import TaskDescription from "../components/task/SingleTask/TaskDescription";
+import TaskTags from "../components/task/SingleTask/TaskTags";
 
-import { getSingleTask, cleanupSingleTask } from "../../../state";
-import { cleanedupResources } from "../../../state/resource/resourceActions";
+import { getSingleTask, cleanupSingleTask } from "../state";
+import { cleanedupResources } from "../state/resource/resourceActions";
 
-const SingleTaskContainer = props => {
+const SingleTask = props => {
   const taskId = props.match.params.id;
   const dispatch = useDispatch();
   const task = useSelector(state => state.tasks.viewedTask);
@@ -55,4 +55,4 @@ const SingleTaskContainer = props => {
   );
 };
 
-export default SingleTaskContainer;
+export default SingleTask;
