@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
+import Overlay from "react-bootstrap/Overlay";
+
+import InvalidQueryOverlay from "./InvalidQueryOverlay";
 
 const TaskListSearchbar = ({ filterByInput }) => {
   const initialFormState = {
@@ -11,8 +14,9 @@ const TaskListSearchbar = ({ filterByInput }) => {
     invalid: false
   };
   const [formState, setForm] = useState(initialFormState);
-
   const [focused, setFocus] = useState(false);
+
+  const target = useRef();
 
   const handleKeyPress = e => {
     if (focused && e.key === "Enter") {
@@ -37,7 +41,7 @@ const TaskListSearchbar = ({ filterByInput }) => {
   return (
     <Col md={7}>
       <div className="float-right" style={{ width: "40%" }}>
-        <InputGroup>
+        <InputGroup ref={target}>
           <FormControl
             type="text"
             placeholder="Find a task by title or description text..."
@@ -55,17 +59,11 @@ const TaskListSearchbar = ({ filterByInput }) => {
               Search
             </Button>
           </InputGroup.Append>
-          {formState.invalid ? (
-            <div style={{ color: "red" }}>
-              Unable to search `{formState.invalidString}`. Search queries must:
-              <ul>
-                <li>Be non-empty</li>
-                <li>
-                  Not contain special characters. Only letters are allowed.
-                </li>
-              </ul>
-            </div>
-          ) : null}
+          <InvalidQueryOverlay
+            target={target.current}
+            show={formState.invalid}
+            invalidString={formState.invalidString}
+          />
         </InputGroup>
       </div>
     </Col>
