@@ -2,8 +2,8 @@ import React from "react";
 import { Switch, Route } from "react-router-dom";
 
 import TaskList from "../pages/TaskList";
-import TaskForm from "./task/TaskForm";
-// import SingleTask from "./task/SingleTask";
+// import TaskForm from "./task/TaskForm";
+import TaskForm from "../pages/TaskForm";
 import SingleTask from "../pages/SingleTask";
 import Settings from "./user/Settings";
 import RandomTask from "./random/RandomTask";
