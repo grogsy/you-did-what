@@ -2,7 +2,8 @@ import React from "react";
 import Table from "react-bootstrap/Table";
 import TaskListRow from "./TaskListRow";
 
-const TaskList = ({ tasks, completed }) => {
+const TaskListTable = ({ tasks, completed }) => {
+  tasks = tasks || [];
   return (
     <Table striped bordered responsive>
       <thead>
@@ -23,4 +24,4 @@ const TaskList = ({ tasks, completed }) => {
   );
 };
 
-export default TaskList;
+export default TaskListTable;
