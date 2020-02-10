@@ -8,12 +8,12 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-import ImageField from "./ImageField";
-import TagsField from "./TagsField";
-import CategoryField from "./CategoryField";
-import TextField from "./TextField";
+import ImageField from "../components/task/TaskForm/ImageField";
+import TagsField from "../components/task/TaskForm/TagsField";
+import CategoryField from "../components/task/TaskForm/CategoryField";
+import TextField from "../components/task/TaskForm/TextField";
 
-import { addNewTask } from "../../../state";
+import { addNewTask } from "../state";
 
 const TaskForm = () => {
   const dispatch = useDispatch();
