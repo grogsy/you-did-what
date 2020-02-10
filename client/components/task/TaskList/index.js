@@ -5,19 +5,22 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-import TaskListDropdown from "./TaskListDropdown";
+import TaskListCategoryDropdown from "./TaskListCategoryDropdown";
 import TaskListTabs from "./TaskListTabs";
+import TaskListPageNumbers from "./TaskListPageNumbers";
 
 import { getTasks } from "../../../state";
 
 const TaskListContainer = () => {
   const dispatch = useDispatch();
   const tasks = useSelector(state => state.tasks.tasks);
-  const pages = useSelector(state => state.tasks.pages);
+  // const pages = useSelector(state => state.tasks.pages);
   const completeTasks = useSelector(state => state.tasks.completedTasks);
 
   const [loading, setLoading] = useState(true);
   const [viewedTasks, setViewedTasks] = useState([]);
+  const [pages, setPages] = useState([]);
+  const [pageIndex, setPageIndex] = useState(0);
 
   useEffect(() => {
     dispatch(getTasks()).then(() => {
@@ -28,6 +31,28 @@ const TaskListContainer = () => {
   useEffect(() => {
     setViewedTasks(tasks);
   }, [tasks]);
+
+  // create pagination
+  useEffect(() => {
+    function paginate(tasks) {
+      const PAGINATE_SIZE = 10;
+      let pages = [];
+      for (let i = 0; i < tasks.length; i += PAGINATE_SIZE) {
+        pages.push(tasks.slice(i, i + PAGINATE_SIZE));
+      }
+
+      return pages;
+    }
+
+    setPages(paginate(viewedTasks));
+  }, [viewedTasks]);
+  console.log(pages);
+
+  // useEffect(() => {
+  //   if (pages && pages.length) {
+  //     setViewedTasks(pages[0]);
+  //   }
+  // }, [pages]);
 
   const filterTasksbyCategory = category => {
     setViewedTasks(
@@ -44,12 +69,18 @@ const TaskListContainer = () => {
     <Container className={styles.classes.container} fluid>
       <Row className={styles.classes.tabBar}>
         <Col>
-          <TaskListDropdown filter={filterTasksbyCategory} />
+          <TaskListCategoryDropdown filter={filterTasksbyCategory} />
           <TaskListTabs
-            viewedTasks={viewedTasks}
+            // viewedTasks={viewedTasks}
+            viewedTasks={pages[pageIndex] || []}
             completeTasks={completeTasks}
             loading={loading}
           />
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <TaskListPageNumbers pages={pages} handleOnClick={setPageIndex} />
         </Col>
       </Row>
     </Container>
