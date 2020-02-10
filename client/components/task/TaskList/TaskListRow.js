@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 
 import { deleteTask, markTaskComplete } from "../../../state";
 
-const TaskListRow = ({ task, completed }) => {
+const TaskListRow = ({ task, completed, filterByTag }) => {
   const dispatch = useDispatch();
 
   const handleDelete = taskId => {
@@ -19,15 +19,20 @@ const TaskListRow = ({ task, completed }) => {
   return (
     <tr>
       <td className="align-middle" style={{ width: "500px" }}>
-        <Link to={`/tasks/${task.id}`}>
+        <Link to={`/tasks/${task.id}`} title={task.name}>
           <strong>{task.name}</strong>
         </Link>
         <section>
           <small>
             Tagged As: &nbsp;
             {task.tags.map(tag => (
-              <a key={tag} title={`See all tasks tagged with ${tag}`} href="#">
-                {tag},{" "}
+              <a
+                key={tag}
+                onClick={() => filterByTag(tag)}
+                title={`See all tasks tagged with ${tag}`}
+                href="#"
+              >
+                {tag}, &nbsp;
               </a>
             ))}{" "}
           </small>

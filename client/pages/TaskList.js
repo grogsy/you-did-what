@@ -5,7 +5,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-import TaskListCategoryDropdown from "../components/task/TaskList/TaskListCategoryDropdown";
+import TaskListToggles from "../components/task/TaskList/TaskListToggles";
 import TaskListTabs from "../components/task/TaskList/TaskListTabs";
 import TaskListPageNumbers from "../components/task/TaskList/TaskListPageNumbers";
 
@@ -20,6 +20,12 @@ const TaskList = () => {
   const [viewedTasks, setViewedTasks] = useState([]);
   const [pages, setPages] = useState([]);
   const [pageIndex, setPageIndex] = useState(0);
+
+  const initialFilterState = {
+    flagged: false,
+    currentFilter: ""
+  };
+  const [filterState, setFilterState] = useState(initialFilterState);
 
   useEffect(() => {
     dispatch(getTasks()).then(() => {
@@ -46,34 +52,56 @@ const TaskList = () => {
     setPages(paginate(viewedTasks));
   }, [viewedTasks]);
 
-  const filterTasksbyCategory = category => {
+  const filterbyCategory = category => {
+    if (category === "All") {
+      setViewedTasks(tasks);
+    } else {
+      setViewedTasks(viewedTasks.filter(task => task.category === category));
+    }
+  };
+
+  const filterByTag = tag => {
+    setViewedTasks(viewedTasks.filter(task => task.tags.includes(tag)));
+    setFilterState({ ...filterState, flagged: true, currentFilter: tag });
+  };
+
+  const filterByInput = query => {
+    console.log(query);
     setViewedTasks(
-      tasks.filter(task => {
-        if (category !== "All") {
-          return task.category === category;
-        }
-        return true;
-      })
+      tasks.filter(
+        // task => task.name.includes(query) || task.description.includes(query)
+        task =>
+          task.name.toLowerCase().includes(query.toLowerCase()) ||
+          task.description.toLowerCase().includes(query.toLowerCase())
+      )
     );
+  };
+
+  const removeTagFilter = () => {
+    setFilterState(initialFilterState);
+    setViewedTasks(tasks);
   };
 
   return (
     <Container className={styles.classes.container} fluid>
       <Row className={styles.classes.tabBar}>
         <Col>
-          <TaskListCategoryDropdown filter={filterTasksbyCategory} />
+          <TaskListToggles
+            filter={filterbyCategory}
+            filterState={filterState}
+            removeTagFilter={removeTagFilter}
+            filterByInput={filterByInput}
+          />
           <TaskListTabs
-            // viewedTasks={viewedTasks}
             viewedTasks={pages[pageIndex]}
             completeTasks={completeTasks}
             loading={loading}
+            filterByTag={filterByTag}
           />
         </Col>
       </Row>
       <Row>
-        <Col>
-          <TaskListPageNumbers pages={pages} handleOnClick={setPageIndex} />
-        </Col>
+        <TaskListPageNumbers pages={pages} handleOnClick={setPageIndex} />
       </Row>
     </Container>
   );

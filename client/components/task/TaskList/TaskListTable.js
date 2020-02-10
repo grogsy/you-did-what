@@ -2,7 +2,7 @@ import React from "react";
 import Table from "react-bootstrap/Table";
 import TaskListRow from "./TaskListRow";
 
-const TaskListTable = ({ tasks, completed }) => {
+const TaskListTable = ({ tasks, completed, filterByTag }) => {
   tasks = tasks || [];
   return (
     <Table striped bordered responsive>
@@ -17,7 +17,12 @@ const TaskListTable = ({ tasks, completed }) => {
       </thead>
       <tbody>
         {tasks.map(task => (
-          <TaskListRow key={task.id} task={task} completed={completed} />
+          <TaskListRow
+            key={task.id}
+            task={task}
+            completed={completed}
+            filterByTag={filterByTag}
+          />
         ))}
       </tbody>
     </Table>
