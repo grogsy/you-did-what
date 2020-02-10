@@ -5,7 +5,7 @@ import Spinner from "react-bootstrap/Spinner";
 // const Routes = lazy(() => import("./Routes"));
 import Navbar from "./Navbar";
 
-const App = props => {
+const Layout = props => {
   return (
     <>
       <Navbar />
@@ -26,4 +26,4 @@ const style = {
   }
 };
 
-export default App;
+export default Layout;
