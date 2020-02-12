@@ -1,28 +1,20 @@
-import React, { useState } from "react";
-import Table from "react-bootstrap/Table";
+import React from "react";
 
-import ResourceFormModal from "./ResourceFormModal";
 import ResourceListRow from "./ResourceListRow";
 
-const ResourcesList = ({ taskId, resources }) => {
-  const [open, setOpen] = useState(false);
-  return (
-    <Table className="mt-3" bordered responsive>
-      <thead>
-        <tr>
-          <th onClick={() => setOpen(!open)}>
-            Resources
-            <ResourceFormModal taskId={taskId} />
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {resources.map(resource => (
-          <ResourceListRow key={resource.id} resource={resource} />
-        ))}
-      </tbody>
-    </Table>
+const ResourceList = ({ resources }) => {
+  return resources && resources.length ? (
+    <tbody>
+      {resources.map(resource => (
+        <ResourceListRow key={resource.id} resource={resource} />
+      ))}
+    </tbody>
+  ) : (
+    <h6>
+      You can add information resources related to your task for convenient
+      access!
+    </h6>
   );
 };
 
-export default ResourcesList;
+export default ResourceList;
