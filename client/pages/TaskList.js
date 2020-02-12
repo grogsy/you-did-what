@@ -62,11 +62,11 @@ const TaskList = () => {
 
   const filterByTag = tag => {
     setViewedTasks(viewedTasks.filter(task => task.tags.includes(tag)));
+    setPageIndex(0);
     setFilterState({ ...filterState, flagged: true, currentFilter: tag });
   };
 
   const filterByInput = query => {
-    console.log(query);
     setViewedTasks(
       tasks.filter(
         // task => task.name.includes(query) || task.description.includes(query)
@@ -79,6 +79,7 @@ const TaskList = () => {
 
   const removeTagFilter = () => {
     setFilterState(initialFilterState);
+    setPageIndex(0);
     setViewedTasks(tasks);
   };
 
