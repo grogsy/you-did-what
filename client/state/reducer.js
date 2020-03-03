@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
 import { taskReducer } from "./task";
 import resourceReducer from "./resource/resourceReducer";
+import userReducer from "./user/userReducer";
 
 // const reducer = combineReducers({
 //   // place all reducers here
@@ -11,5 +12,6 @@ import resourceReducer from "./resource/resourceReducer";
 
 export default combineReducers({
   tasks: taskReducer,
-  resources: resourceReducer
+  resources: resourceReducer,
+  user: userReducer
 });
