@@ -7,19 +7,23 @@ import Form from "react-bootstrap/Form";
 
 import ResourceFormFields from "./ResourceFormFields";
 
-import { addNewResource } from "../../state/resource/resourceActionCreators";
+import { addNewResource } from "../../../state/resource/resourceActionCreators";
 
 const ResourceFormModal = ({ taskId }) => {
   const dispatch = useDispatch();
 
   const [show, setShow] = useState(false);
-  const [formState, setFormState] = useState({
+  const initialFormState = {
     httplink: "",
     fallbackText: ""
-  });
+  };
+  const [formState, setFormState] = useState(initialFormState);
 
   const showModal = () => setShow(true);
-  const hideModal = () => setShow(false);
+  const hideModal = () => {
+    setFormState(initialFormState);
+    setShow(false);
+  };
 
   const handleOnChange = (e, field) => {
     setFormState({ ...formState, [field]: e.target.value });
@@ -42,14 +46,12 @@ const ResourceFormModal = ({ taskId }) => {
           <Modal.Header closeButton>
             <Modal.Title>Add Resource</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
-            <ResourceFormFields
-              link={formState.link}
-              title={formState.title}
-              show={show}
-              handleOnChange={handleOnChange}
-            />
-          </Modal.Body>
+          <ResourceFormFields
+            link={formState.link}
+            title={formState.title}
+            show={show}
+            handleOnChange={handleOnChange}
+          />
           <Modal.Footer>
             <Button variant="secondary" onClick={hideModal}>
               Close

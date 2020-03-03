@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 
-import ResourcesList from "../components/resource/ResourceList";
+import ResourcesTable from "../components/resource/ResourceTable";
 import TaskHeader from "../components/task/SingleTask/TaskHeader";
 import TaskDescription from "../components/task/SingleTask/TaskDescription";
 import TaskTags from "../components/task/SingleTask/TaskTags";
@@ -49,7 +49,7 @@ const SingleTask = props => {
       </Row>
       <hr />
       <Row>
-        <ResourcesList taskId={taskId} resources={resources} />
+        <ResourcesTable taskId={taskId} resources={resources} />
       </Row>
     </Container>
   );

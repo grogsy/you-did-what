@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import Form from "react-bootstrap/Form";
+import ModalBody from "react-bootstrap/ModalBody";
 
 const ResourceFormFields = ({ link, title, handleOnChange, show }) => {
   const target = useRef();
@@ -10,7 +11,7 @@ const ResourceFormFields = ({ link, title, handleOnChange, show }) => {
   }, [show]);
 
   return (
-    <>
+    <ModalBody>
       <Form.Group>
         <Form.Label>Link</Form.Label>
         <Form.Control
@@ -33,7 +34,7 @@ const ResourceFormFields = ({ link, title, handleOnChange, show }) => {
           onChange={e => handleOnChange(e, "fallbackText")}
         />
       </Form.Group>
-    </>
+    </ModalBody>
   );
 };
 
