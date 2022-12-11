@@ -17,7 +17,7 @@
     "axios": "^0.19.1",
     "bootstrap": "^4.4.1",
     "connect-session-sequelize": "^6.1.0",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "express-session": "^1.17.0",
     "passport": "^0.4.1",
     "pg": "^7.17.0",
